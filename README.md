@@ -7,7 +7,7 @@
 
 ## Descripción
 Este proyecto desarrolla un paquete en Python que realiza estadísticas básicas
-para datos cuantitativos y cualitativos usando POO (clases, herencia, polimorfi>
+para datos cuantitativos y cualitativos usando POO (clases, herencia, polimorfismo).
 
 ## Estructura del proyecto
 TRBAJO/
