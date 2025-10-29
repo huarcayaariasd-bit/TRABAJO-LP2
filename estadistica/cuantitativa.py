@@ -1,11 +1,8 @@
-# estadistica/cuantitativa.py
- 
 from estadistica.base import EstadisticaBase
 
 class EstadisticaCuantitativa(EstadisticaBase):
-    def _init_(self, datos):
-        super()._init_(datos)
-        # Aseguramos que los datos sean numéricos
+    def __init__(self, datos):
+        super().__init__(datos)
         self.datos = [float(x) for x in self.datos if self._es_numero(x)]
         self.datos.sort()
 
@@ -17,10 +14,7 @@ class EstadisticaCuantitativa(EstadisticaBase):
             return False
 
     def media(self):
-        suma = 0
-        for valor in self.datos:
-            suma += valor
-        return suma / len(self.datos)
+        return sum(self.datos) / len(self.datos)
 
     def mediana(self):
         n = len(self.datos)
@@ -31,30 +25,20 @@ class EstadisticaCuantitativa(EstadisticaBase):
             return self.datos[mitad]
 
     def moda(self):
-        frecuencias = {}
-        for valor in self.datos:
-            if valor in frecuencias:
-                frecuencias[valor] += 1
-            else:
-                frecuencias[valor] = 1
-        max_frec = max(frecuencias.values())
-        modas = [k for k, v in frecuencias.items() if v == max_frec]
-        return modas
+        frec = {}
+        for v in self.datos:
+            frec[v] = frec.get(v, 0) + 1
+        max_frec = max(frec.values())
+        return [k for k, v in frec.items() if v == max_frec]
 
     def varianza(self):
-        media = self.media()
-        suma = 0
-        for valor in self.datos:
-            suma += (valor - media) ** 2
-        return suma / (len(self.datos) - 1)
+        m = self.media()
+        return sum((x - m) ** 2 for x in self.datos) / (len(self.datos) - 1)
 
     def desviacion_estandar(self):
         return self.varianza() ** 0.5
 
     def percentil(self, p):
-        """
-        Calcula el percentil p (entre 0 y 100) manualmente.
-        """
         if not self.datos:
             return None
         k = (len(self.datos) - 1) * (p / 100)
@@ -75,4 +59,4 @@ class EstadisticaCuantitativa(EstadisticaBase):
             "percentil_25": self.percentil(25),
             "percentil_50": self.percentil(50),
             "percentil_75": self.percentil(75),
-        }
+}
