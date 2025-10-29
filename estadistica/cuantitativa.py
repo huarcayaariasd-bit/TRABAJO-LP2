@@ -1,5 +1,5 @@
 # estadistica/cuantitativa.py
-
+ 
 from estadistica.base import EstadisticaBase
 
 class EstadisticaCuantitativa(EstadisticaBase):
